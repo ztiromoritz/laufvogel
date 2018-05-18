@@ -1,0 +1,49 @@
+.previewEditor {
+    width: 600px;
+    position: relative;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.previewEditor .CodeMirror {
+    height: auto;
+    min-height: 37px;
+    width: 600px;
+    background-color: #eee;
+}
+.previewEditor .previewButton {
+    position: absolute;
+    border-radius: 4px;
+    width: 50px;
+    height: 27px;
+    right: 5px;
+    bottom: 5px;
+    padding-left: 7px;
+    padding-top: 5px;
+    color: #ffffff;
+    z-index: 20;
+    box-sizing: border-box;
+    background-color: #1334a1;
+    font-family: Arial;
+}
+
+.previewEditor .previewButton:hover {
+    background-color: #0f1f6e;
+}
+
+.previewFrame {
+    height: 0px;
+    border: none;
+    width: 600px;
+    transition: height .2s linear;
+}
+
+.previewFrame.shown {
+    height: 210px;
+}
+
+
+img:hover {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}

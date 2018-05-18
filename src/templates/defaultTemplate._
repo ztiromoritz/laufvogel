@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrapper {
+            display: flex;
+            background-color: lightblue;
+            justify-content: space-between;
+        }
+
+        code {
+            background-color: #fff;
+            flex: 1;
+            height: 200px;
+            overflow: auto;
+            margin: 5px;
+            padding-left: 30px;
+        }
+
+        svg {
+            background-color: #fff;
+            margin: 5px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <code id="resultArea">
+    </code>
+</div>
+
+
+<script>
+    const resultArea = document.getElementById('resultArea');
+    function print(...messages) {
+        messages.forEach((msg) => {
+            resultArea.innerHTML = resultArea.innerText + "<span style='color: darkgrey;'> ></span> " + msg + "<br>";
+        });
+    }
+    console.log=print;
+    window.addEventListener('message', (event) => {
+        if (event.data === 'REFRESH') {
+            document.location.reload();
+        }
+    });
+</script>
+<script><%= js %></script>
+
+</body>
+</html>

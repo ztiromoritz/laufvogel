@@ -1,0 +1,34 @@
+{
+  "name": "kelenken",
+  "version": "0.0.1",
+  "description": "enrich code-tag to a run in browser snipped",
+  "main": "lib/index.js",
+  "scripts": {
+    "start:dev": "webpack-dev-server",
+    "build:dev": "webpack --mode development",
+    "build:watch": "webpack --watch --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Moritz Rebbert <moritz.rebbert@udo.edu>",
+  "license": "MIT",
+  "dependencies": {
+    "codemirror": "^5.37.0",
+    "lodash.template": "^4.4.0",
+    "promise-peek": "^1.0.1"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-plugin-transform-es2015-modules-umd": "^6.24.1",
+    "babel-preset-es2017": "^6.24.1",
+    "css-loader": "^0.28.11",
+    "file-to-string-loader": "0.0.0",
+    "flow-bin": "^0.72.0",
+    "flow-webpack-plugin": "^1.2.0",
+    "style-loader": "^0.21.0",
+    "ts-loader": "^4.3.0",
+    "typescript": "^2.8.3",
+    "webpack": "^4.8.3",
+    "webpack-cli": "^2.1.3",
+    "webpack-dev-server": "^3.1.4"
+  }
+}
