@@ -18,17 +18,17 @@ const createIFrame = (context, html) => {
     context.$frameParent.innerHTML = "";
     context.$frameParent.appendChild($previewFrame)
     $previewFrame.contentWindow.document.write(html);
-    $previewFrame.classList.add('shown');
+    context.$frameParent.classList.add('shownKelenkenPreview');
 };
 
 const onClick = (context) => {
     return () => {
         if (context.template !== null) {
-            const exampleFile = context.template({
+            const html = context.template({
                 js: context.editor.getValue(),
                 base: context.templateBase
             });
-            createIFrame(context, exampleFile);
+            createIFrame(context, html)
         }
     }
 };
@@ -62,7 +62,7 @@ const loadTemplateFromUrl = (url) => {
 
 const loadTemplate = (context) => {
     const url = context.dataset['kelenkenTemplate'] || null;
-    if(url){
+    if (url) {
         context.templateBase = (new URL(url, window.location.href)).href;
     }
     return (() => {
@@ -79,22 +79,43 @@ const loadTemplate = (context) => {
 };
 
 
-const decorateTextArea = ($element) => {
-    const $parent = $element.parentElement;
+/**
+ * This:
+ * > textarea (*)
+ *
+ * is transformed to this:
+ * > previewArea
+ *   > previewEditor
+ *     > textarea (* display: none;)
+ *     > codemirror
+ *     > button
+ *   > [frameParent]
+ *
+ *
+ *
+ * @param $textarea
+ * @returns {{editor: *, dataset: *|DOMStringMap, template: null, $parent: HTMLElement, $previewEditor: HTMLDivElement, $frameParent: Element}}
+ */
+const decorateTextArea = ($textarea) => {
+    const $parent = $textarea.parentElement;
+
+    const $previewArea = document.createElement('div');
+    $previewArea.classList.add('previewArea');
+    $parent.replaceChild($previewArea, $textarea);
 
     const $previewEditor = document.createElement('div');
     $previewEditor.classList.add('previewEditor');
+    $previewArea.appendChild($previewEditor);
 
+    let $frameParent = document.querySelector(`#${$textarea.dataset['kelenkenOut']}`);
+    if (!$frameParent) {
+        $frameParent = document.createElement('div');
+        $frameParent.classList.add('frameParent');
+        $previewArea.appendChild($frameParent);
+    }
 
-
-    $parent.replaceChild($previewEditor, $element);
-    $previewEditor.appendChild($element);
-
-
-    const $frameParent = document.querySelector(`#${$element.dataset['kelenkenOut']}`);
-
-
-    const editor = codemirror.fromTextArea($element, {
+    $previewEditor.appendChild($textarea);
+    const editor = codemirror.fromTextArea($textarea, {
         lineNumbers: true,
         mode: "javascript"
     });
@@ -102,12 +123,13 @@ const decorateTextArea = ($element) => {
 
     return {
         editor,
-        dataset: $element.dataset,
+        dataset: $textarea.dataset,
         template: null, // TODO: Default template
         //templatePath: $element.dataset['kelenkenTemplate'],
         //template: null,
         //canRun: $element.dataset['kelenkenStatic'] === 'true',
         $parent,
+        $previewArea,
         $previewEditor,
         $frameParent
     };

@@ -32,13 +32,18 @@
 }
 
 .previewFrame {
-    height: 0px;
+    height: 100%;
+    width: 100%;
     border: none;
+}
+
+.frameParent {
+    height: 0px;
     width: 600px;
     transition: height .2s linear;
 }
 
-.previewFrame.shown {
+.frameParent.shownKelenkenPreview {
     height: 210px;
 }
 
