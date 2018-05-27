@@ -38,21 +38,21 @@
     <h3>Getting started</h3>
 
     The basic setup
-    <textarea data-laufvogel-tabs="js" data-laufvogel-static="true">
+    <textarea data-laufvogel data-laufvogel-tabs="js" data-laufvogel-static="true">
 const laufvogel =require('laufvogel');
 laufvogel.scan();
     </textarea>
 
     Now every textarea with the date-laufvogel-tabs property will be enriched.
     So the following example:
-    <textarea  data-laufvogel-tabs="html" data-laufvogel-static="true">
-&lt;textarea data-laufvogel-tabs="js" data-laufvogel-static="true">
+    <textarea  data-laufvogel data-laufvogel-tabs="html" data-laufvogel-static="true">
+&lt;textarea data-laufvogel data-laufvogel-tabs="js" data-laufvogel-static="true">
     console.log("Hello World");
 &lt;/textarea>
     </textarea>
 
     Will result in this.
-    <textarea data-laufvogel-tabs="js">
+    <textarea data-laufvogel data-laufvogel-tabs="js">
 console.log("Hello World");
     </textarea>
 
@@ -60,13 +60,13 @@ console.log("Hello World");
     <h3>Example 2</h3>
     A laufvogel example looks like this.
     <!-- @formatter:off -->
-    <textarea data-laufvogel-tabs="html">
+    <textarea data-laufvogel data-laufvogel-tabs="html" data-laufvogel-static="true">
 &lt;html>
     &lt;body>
         &lt;h1>laufvogel&lt;/h1>
         &lt;h2>Add runnable examples to your html page&lt;/h2>
         A laufvogel example looks like this.
-        &lt;code data-laufvogel-tabs="html">
+        &lt;code data-laufvogel data-laufvogel-tabs="html">
             Test
         &lt;/code>
         &lt;script src="../dist/laufvogel.js">&lt;/script>
@@ -81,7 +81,7 @@ console.log("Hello World");
 
     You can also use a template for the preview snippet and just add js code.
     <!-- @formatter:off -->
-    <textarea data-laufvogel-tabs="html">&lt;code data-laufvogel-tabs="js" data-laufvogel-template="./template._">
+    <textarea data-laufvogel data-laufvogel-tabs="html">&lt;code data-laufvogel data-laufvogel-tabs="js" data-laufvogel-template="./template._">
     var x = 1;
     console.log(x);
 &lt/code></textarea>
@@ -89,7 +89,7 @@ console.log("Hello World");
 
     With a template that looks like this:
     <!-- @formatter:off -->
-    <textarea data-laufvogel-tabs="html" data-laufvogel-static="true">&lt;html>
+    <textarea data-laufvogel data-laufvogel-tabs="html" data-laufvogel-static="true">&lt;html>
     &lt;body>
         &lt;script src="../dist/laufvogel.js">&lt;/script>
         &lt;script>
@@ -101,14 +101,14 @@ console.log("Hello World");
 
     And if you just want a nice looking example without a run button just do this:
     <!-- @formatter:off -->
-    <textarea data-laufvogel-tabs="html" data-laufvogel-static="true">&lt;code data-laufvogel-tabs="html" data-laufvogel-static="true">
+    <textarea data-laufvogel data-laufvogel-tabs="html" data-laufvogel-static="true">&lt;code data-laufvogel data-laufvogel-tabs="html" data-laufvogel-static="true">
     </textarea>
      <!-- @formatter:on -->
 
     Does you brain hurt now? Mine, too.
 
     Simple example where it is used:
-    <textarea data-laufvogel-tabs="js" data-laufvogel-template="./assets/template._">
+    <textarea data-laufvogel data-laufvogel-tabs="js" data-laufvogel-template="./assets/template._">
     </textarea>
 </main>
 <script src="../dist/laufvogel.js"></script>

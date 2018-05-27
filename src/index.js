@@ -7,10 +7,8 @@ import 'codemirror/mode/htmlmixed/htmlmixed';
 import 'codemirror/mode/javascript/javascript';
 import './css/style.css';
 import _ from 'lodash';
-import "promise-peek";
 
 const DEFAULT_TEMPLATE = _.template(require('./templates/defaultTemplate._')); //TODO: console.log example
-
 
 const createIFrame = (context, html) => {
     const $previewFrame = document.createElement('iframe');
@@ -33,10 +31,9 @@ const onClick = (context) => {
     }
 };
 
-
 const wireButton = (contextPromise) => {
     return contextPromise.then((context) => {
-        if (context.dataset['laufvogelStatic'] !== 'true') {
+        if (context.config.static !== 'true') {
             const $runButton = document.createElement('div');
             context.$previewEditor.appendChild($runButton);
             $runButton.classList.add('previewButton');
@@ -57,11 +54,10 @@ const loadTemplateFromUrl = (url) => {
     } else {
         return Promise.resolve(DEFAULT_TEMPLATE)
     }
-
 };
 
 const loadTemplate = (context) => {
-    const url = context.dataset['laufvogelTemplate'] || null;
+    const url = context.config.template;
     if (url) {
         context.templateBase = (new URL(url, window.location.href)).href;
     }
@@ -96,7 +92,8 @@ const loadTemplate = (context) => {
  * @param $textarea
  * @returns {{editor: *, dataset: *|DOMStringMap, template: null, $parent: HTMLElement, $previewEditor: HTMLDivElement, $frameParent: Element}}
  */
-const decorateTextArea = ($textarea) => {
+const decorateTextArea = (context) => {
+    const $textarea = context.$textarea;
     const $parent = $textarea.parentElement;
 
     const $previewArea = document.createElement('div');
@@ -107,7 +104,7 @@ const decorateTextArea = ($textarea) => {
     $previewEditor.classList.add('previewEditor');
     $previewArea.appendChild($previewEditor);
 
-    let $frameParent = document.querySelector(`#${$textarea.dataset['laufvogelOut']}`);
+    let $frameParent = document.querySelector(`#${context.config.out}`);
     if (!$frameParent) {
         $frameParent = document.createElement('div');
         $frameParent.classList.add('frameParent');
@@ -121,26 +118,64 @@ const decorateTextArea = ($textarea) => {
     });
     editor.setValue(editor.getValue().trim());
 
-    return {
+
+    return Object.assign(context,{
         editor,
-        dataset: $textarea.dataset,
-        template: null, // TODO: Default template
-        //templatePath: $element.dataset['laufvogelTemplate'],
-        //template: null,
-        //canRun: $element.dataset['laufvogelStatic'] === 'true',
         $parent,
         $previewArea,
         $previewEditor,
         $frameParent
-    };
+    });
 };
 
 
-const scan = () => {
+const localValueAdder = (localConfig, $textarea) => {
+    const adder = {};
+    adder.add = (name) => {
+        const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+        const value = $textarea.dataset[`laufvogel${capitalize(name)}`];
+        if (value) {
+            localConfig[name] = value;
+        }
+        return adder;
+    }
+    return adder;
+}
+
+const createConfig = (globalConfig) => {
+    const defaultConfig = {
+        template: DEFAULT_TEMPLATE,
+        tabs: 'js',
+        static: 'false'
+    }
+
+    return ($textarea) => {
+
+        const localConfig = {}
+        localValueAdder(localConfig, $textarea)
+            .add('template')
+            .add('tabs')
+            .add('out')
+            .add('static');
+
+        const config = Object.assign({}, globalConfig, localConfig);
+
+        return {
+            config,
+            $textarea
+        }
+
+    };
+
+}
+
+
+const scan = (globalConfig) => {
     console.log("scan", document);
     if (typeof document !== 'undefined') {
-        const $elements = Array.prototype.slice.call(document.querySelectorAll("[data-laufvogel-tabs]"));
+        const $elements = Array.prototype.slice.call(document.querySelectorAll("[data-laufvogel]"));
         $elements
+            .map(createConfig(globalConfig))
             .map(decorateTextArea)
             .map(loadTemplate)
             .map(wireButton);
