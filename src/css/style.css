@@ -43,7 +43,7 @@
     transition: height .2s linear;
 }
 
-.frameParent.shownKelenkenPreview {
+.frameParent.shownLaufvogelPreview {
     height: 210px;
 }
 

@@ -42,10 +42,10 @@ module.exports = {
         })
     ],
     output: {
-        filename: './kelenken.js',
+        filename: './laufvogel.js',
         // export to AMD, CommonJS, or window
         libraryTarget: 'umd',
         // the name exported to window
-        library: 'kelenken'
+        library: 'laufvogel'
     }
 };

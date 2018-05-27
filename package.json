@@ -1,5 +1,5 @@
 {
-  "name": "kelenken",
+  "name": "laufvogel",
   "version": "0.0.1",
   "description": "enrich code-tag to a run in browser snipped",
   "main": "lib/index.js",

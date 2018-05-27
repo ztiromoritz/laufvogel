@@ -18,7 +18,7 @@ const createIFrame = (context, html) => {
     context.$frameParent.innerHTML = "";
     context.$frameParent.appendChild($previewFrame)
     $previewFrame.contentWindow.document.write(html);
-    context.$frameParent.classList.add('shownKelenkenPreview');
+    context.$frameParent.classList.add('shownLaufvogelPreview');
 };
 
 const onClick = (context) => {
@@ -36,7 +36,7 @@ const onClick = (context) => {
 
 const wireButton = (contextPromise) => {
     return contextPromise.then((context) => {
-        if (context.dataset['kelenkenStatic'] !== 'true') {
+        if (context.dataset['laufvogelStatic'] !== 'true') {
             const $runButton = document.createElement('div');
             context.$previewEditor.appendChild($runButton);
             $runButton.classList.add('previewButton');
@@ -61,7 +61,7 @@ const loadTemplateFromUrl = (url) => {
 };
 
 const loadTemplate = (context) => {
-    const url = context.dataset['kelenkenTemplate'] || null;
+    const url = context.dataset['laufvogelTemplate'] || null;
     if (url) {
         context.templateBase = (new URL(url, window.location.href)).href;
     }
@@ -107,7 +107,7 @@ const decorateTextArea = ($textarea) => {
     $previewEditor.classList.add('previewEditor');
     $previewArea.appendChild($previewEditor);
 
-    let $frameParent = document.querySelector(`#${$textarea.dataset['kelenkenOut']}`);
+    let $frameParent = document.querySelector(`#${$textarea.dataset['laufvogelOut']}`);
     if (!$frameParent) {
         $frameParent = document.createElement('div');
         $frameParent.classList.add('frameParent');
@@ -125,9 +125,9 @@ const decorateTextArea = ($textarea) => {
         editor,
         dataset: $textarea.dataset,
         template: null, // TODO: Default template
-        //templatePath: $element.dataset['kelenkenTemplate'],
+        //templatePath: $element.dataset['laufvogelTemplate'],
         //template: null,
-        //canRun: $element.dataset['kelenkenStatic'] === 'true',
+        //canRun: $element.dataset['laufvogelStatic'] === 'true',
         $parent,
         $previewArea,
         $previewEditor,
@@ -139,7 +139,7 @@ const decorateTextArea = ($textarea) => {
 const scan = () => {
     console.log("scan", document);
     if (typeof document !== 'undefined') {
-        const $elements = Array.prototype.slice.call(document.querySelectorAll("[data-kelenken-tabs]"));
+        const $elements = Array.prototype.slice.call(document.querySelectorAll("[data-laufvogel-tabs]"));
         $elements
             .map(decorateTextArea)
             .map(loadTemplate)
