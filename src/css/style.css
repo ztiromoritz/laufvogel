@@ -1,17 +1,17 @@
-.previewEditor {
+._laufvogel .previewEditor {
     width: 600px;
     position: relative;
     margin-bottom: 10px;
     display: block;
 }
 
-.previewEditor .CodeMirror {
+._laufvogel .previewEditor .CodeMirror {
     height: auto;
     min-height: 37px;
     width: 600px;
     background-color: #eee;
 }
-.previewEditor .previewButton {
+._laufvogel .previewEditor .previewButton {
     position: absolute;
     border-radius: 4px;
     width: 50px;
@@ -27,28 +27,23 @@
     font-family: Arial;
 }
 
-.previewEditor .previewButton:hover {
+._laufvogel .previewEditor .previewButton:hover {
     background-color: #0f1f6e;
 }
 
-.previewFrame {
+._laufvogel .previewFrame {
     height: 100%;
     width: 100%;
     border: none;
 }
 
-.frameParent {
+._laufvogel .frameParent {
     height: 0px;
     width: 600px;
     transition: height .2s linear;
 }
 
-.frameParent.shownLaufvogelPreview {
+._laufvogel .frameParent.shownLaufvogelPreview {
     height: 210px;
 }
 
-
-img:hover {
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
-}

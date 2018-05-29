@@ -97,6 +97,7 @@ const decorateTextArea = (context) => {
     const $parent = $textarea.parentElement;
 
     const $previewArea = document.createElement('div');
+    $previewArea.classList.add('_laufvogel');
     $previewArea.classList.add('previewArea');
     $parent.replaceChild($previewArea, $textarea);
 
