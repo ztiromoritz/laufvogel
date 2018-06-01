@@ -1,5 +1,4 @@
 ._laufvogel .previewEditor {
-    width: 600px;
     position: relative;
     margin-bottom: 10px;
     display: block;
@@ -8,7 +7,6 @@
 ._laufvogel .previewEditor .CodeMirror {
     height: auto;
     min-height: 37px;
-    width: 600px;
     background-color: #eee;
 }
 ._laufvogel .previewEditor .previewButton {
