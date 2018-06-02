@@ -5,6 +5,7 @@ import 'codemirror/theme/monokai.css';
 import 'codemirror/theme/neo.css';
 import 'codemirror/mode/htmlmixed/htmlmixed';
 import 'codemirror/mode/javascript/javascript';
+import 'codemirror/keymap/vim';
 import './css/style.css';
 import _ from 'lodash';
 
@@ -113,10 +114,8 @@ const decorateTextArea = (context) => {
     }
 
     $previewEditor.appendChild($textarea);
-    const editor = codemirror.fromTextArea($textarea, {
-        lineNumbers: true,
-        mode: "javascript"
-    });
+    // TODO: tabs or type dependent settings
+    const editor = codemirror.fromTextArea($textarea, context.config.codemirror);
     editor.setValue(editor.getValue().trim());
 
 
@@ -147,7 +146,8 @@ const createConfig = (globalConfig) => {
     const defaultConfig = {
         template: DEFAULT_TEMPLATE,
         tabs: 'js',
-        static: 'false'
+        static: 'false',
+        codemirror: {}
     }
 
     return ($textarea) => {
